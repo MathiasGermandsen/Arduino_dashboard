@@ -7,28 +7,51 @@
 
 <h1>Welcome to The Dashboard</h1>
 
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
+<Dropdown Color="DropdownColor.Secondary">
+    <DropdownToggleButton>Dropdown button</DropdownToggleButton>
+    <DropdownMenu>
+        <DropdownItem To="#" Type="DropdownItemType.Link">Action</DropdownItem>
+        <DropdownItem To="#" Type="DropdownItemType.Link">Another action</DropdownItem>
+        <DropdownItem To="#" Type="DropdownItemType.Link">Something else here</DropdownItem>
+    </DropdownMenu>
+</Dropdown>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+<p></p>
+
 @if (catfacts == null)
 {
-    <p>Loading ... </p>
+<p>Loading ... </p>
 }
 else
 {
-    <div class="row">
-        @foreach (CatFactDTO catfact in catfacts)
-        { 
-            <div class="col-6 mb-4">
-                <Card TextAlignment="Alignment.Center" Style="width:18rem;">
-                    <CardBody>
-                        <CardTitle>CAT FACT</CardTitle>
-                        <CardsText1>Fact: @catfact.fact</CardsText1>
-                        <CardText2>Likes: @catfact.likes</CardText2>
-                        <CardText3>Dislikes @catfact.dislikes</CardText3>
-                        <CardText4>Date: @catfact.dateAdded</CardText4>
-                    </CardBody>
-                </Card>
-            </div>
-        }
-    </div>
+<div class="row">
+    @foreach (CatFactDTO catfact in catfacts)
+    { 
+        <div class="col-6 mb-4">
+            <Card TextAlignment="Alignment.Center" Style="width:18rem;">
+                <CardBody>
+                    <CardTitle>CAT FACT</CardTitle>
+                    <CardsText1>Fact: @catfact.fact</CardsText1>
+                    <CardText2>Likes: @catfact.likes</CardText2>
+                    <CardText3>Dislikes @catfact.dislikes</CardText3>
+                    <CardText4>Date: @catfact.dateAdded</CardText4>
+                </CardBody>
+            </Card>
+        </div>
+    }
+</div>
 }
 
 
