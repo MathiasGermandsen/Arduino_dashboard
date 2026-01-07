@@ -1,0 +1,44 @@
+﻿@page "/"
+@inject HttpClient Http
+
+
+<PageTitle>Home</PageTitle>
+
+<h1>Welcome to The Dashboard</h1>
+
+@if (catfacts == null)
+{
+    <p>Loading ... </p>
+}
+else
+{
+    <div class="row">
+        @foreach (CatFactDTO catfact in catfacts)
+        {
+            <CardGroup>
+                <Card Style="width:18rem;">
+                    <CardBody>
+                        <CardTitle>CAT FACT</CardTitle>
+                        <CardsText2>@catfact.fact</CardsText2>
+                        <CardText3>@catfact.likes </CardText3>
+                        <CardText4>@catfact.dislikes</CardText4>
+                        <CardText5>@catfact.dateAdded</CardText5>
+                    </CardBody>
+                </Card>
+            </CardGroup>
+        }
+    </div>
+}
+
+
+
+@code {
+
+    private List<CatFactDTO> catfacts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        catfacts = await Http.GetFromJsonAsync<List<CatFactDTO>>("http://10.133.51.103:8080//api/CatFactGet");
+    }
+
+}
