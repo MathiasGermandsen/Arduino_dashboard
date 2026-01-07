@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Mvc.RazorPages
 @inject HttpClient Http
 
 
@@ -14,18 +15,18 @@ else
 {
     <div class="row">
         @foreach (CatFactDTO catfact in catfacts)
-        {
-            <CardGroup>
-                <Card Style="width:18rem;">
+        { 
+            <div class="col-6 mb-4">
+                <Card TextAlignment="Alignment.Center" Style="width:18rem;">
                     <CardBody>
                         <CardTitle>CAT FACT</CardTitle>
-                        <CardsText2>@catfact.fact</CardsText2>
-                        <CardText3>@catfact.likes </CardText3>
-                        <CardText4>@catfact.dislikes</CardText4>
-                        <CardText5>@catfact.dateAdded</CardText5>
+                        <CardsText1>Fact: @catfact.fact</CardsText1>
+                        <CardText2>Likes: @catfact.likes</CardText2>
+                        <CardText3>Dislikes @catfact.dislikes</CardText3>
+                        <CardText4>Date: @catfact.dateAdded</CardText4>
                     </CardBody>
                 </Card>
-            </CardGroup>
+            </div>
         }
     </div>
 }
@@ -38,7 +39,9 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        catfacts = await Http.GetFromJsonAsync<List<CatFactDTO>>("http://10.133.51.103:8080//api/CatFactGet");
+        var response = await Http.GetFromJsonAsync<Pages>("http://10.133.51.103:8080/api/CatFactGet");
+
+        catfacts = response.data;
     }
 
 }
