@@ -63,10 +63,6 @@
 
 </div>
 
-
-
-
-
 @code {
 
     private List<CatFactDTO> catfacts;
@@ -90,6 +86,7 @@
         var response = await GetCatFactsAsync();
         if (response?.data!=null)
             catfacts.AddRange(response.data);
+        
         StateHasChanged();
     }
 }
