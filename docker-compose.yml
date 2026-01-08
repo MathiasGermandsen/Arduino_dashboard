@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  arduino-dashboard:
+    image: arduino-dashboard:latest
+    build:
+      context: ./Arduino dashboard
+      dockerfile: Dockerfile
+    ports:
+      - "13000:13000"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ASPNETCORE_URLS=http://+:13000
+    deploy:
+      mode: replicated
+      replicas: 3
+      update_config:
+        parallelism: 1
+        delay: 10s
+        failure_action: rollback
+        order: start-first
+      rollback_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 256M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:13000/" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - arduino-network
+
+networks:
+  arduino-network:
+    driver: overlay
+    attachable: true
